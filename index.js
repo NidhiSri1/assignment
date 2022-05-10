@@ -7,7 +7,9 @@ app.use(cors());
 app.use(express.json());
 const flatController = require("./controllers/flatControllers");
 const { register, login } = require("./controllers/userAuthController");
+require("dotenv").config();
 
+const port = process.env.PORT || 2424;
 app.post(
     "/register",
     body("name").isString().isLength({ min: 2, max: 20 }),
@@ -24,7 +26,7 @@ app.post(
 
 app.use("/flat", flatController);
 
-app.listen(2424, async () => {
+app.listen(port, async () => {
     try {
         await connect();
         console.log("listining on port 2424");
